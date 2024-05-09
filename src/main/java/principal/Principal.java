@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import principal.views.PanelCopiaFicheros;
+import principal.views.PanelTablaYFicheros;
 
 public class Principal extends JFrame {
 	JTabbedPane panelTabbed;
@@ -17,13 +18,16 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
-		super("Gestion de centro Educativo");
+		super("Gestion de Ficheros");
 		this.setBounds(0, 0, 800, 600);
 		panelTabbed = new JTabbedPane();
 
 		PanelCopiaFicheros pcf = new PanelCopiaFicheros();
-
+		PanelTablaYFicheros ptyf = new PanelTablaYFicheros();
+		
 		panelTabbed.addTab("Copiado de Carpetas", pcf);
+		panelTabbed.addTab("Busqueda de Ficheros", ptyf);
+		
 		panelTabbed.setSelectedIndex(0);
 		this.getContentPane().add(panelTabbed);
 
