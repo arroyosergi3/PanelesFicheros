@@ -14,6 +14,33 @@ public class DatosDeTabla {
 	public static String[] getTitulosColumnas() {
 		return new String[] { "Nombre", "Tamaño", "Ultima modificación" };
 	}
+	public static Object[][] getDatosDeTablaFiltradoporTamanio(int tamanio) {
+	    if (PanelTablaYFicheros.getCarpeta() != null) {
+	        File[] archivos = PanelTablaYFicheros.getCarpeta().listFiles();
+	        // Crear una nueva matriz para almacenar los datos filtrados
+	        Object[][] datosFiltrados = new Object[archivos.length][3];
+	        int contador = 0;
+	        for (int i = 0; i < archivos.length; i++) {
+	            File archivo = archivos[i];
+	            if (archivo.length() <= tamanio * 1024) { // Convertir tamaño a bytes
+	                datosFiltrados[contador][0] = archivo.getName();
+	                datosFiltrados[contador][1] = (archivo.length() / 1024f) + " KB"; // Tamaño en KB
+	                Date d = new Date(archivo.lastModified());
+	                SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
+	                datosFiltrados[contador][2] = dft.format(d);
+	                contador++;
+	            }
+	        }
+	        // Redimensionar la matriz para eliminar las filas vacías
+	        Object[][] datosFiltradosFinal = new Object[contador][3];
+	        for (int i = 0; i < contador; i++) {
+	            datosFiltradosFinal[i] = datosFiltrados[i];
+	        }
+	        return datosFiltradosFinal;
+	    }
+	    return null; // Retornar null si no hay carpeta seleccionada o no hay archivos
+	}
+
 
 	public static Object[][] getDatosDeTablaFiltrado(String str) {
 	    if (PanelTablaYFicheros.getCarpeta() != null) {

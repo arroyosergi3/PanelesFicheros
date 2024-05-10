@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import principal.views.PanelCopiaFicheros;
+import principal.views.PanelTablaConSlider;
 import principal.views.PanelTablaYFicheros;
 
 public class Principal extends JFrame {
@@ -25,9 +26,10 @@ public class Principal extends JFrame {
 
 		PanelCopiaFicheros pcf = new PanelCopiaFicheros();
 		PanelTablaYFicheros ptyf = new PanelTablaYFicheros();
-		
+		PanelTablaConSlider ptcs = new PanelTablaConSlider();
 		panelTabbed.addTab("Copiado de Carpetas", pcf);
 		panelTabbed.addTab("Busqueda de Ficheros", ptyf);
+		panelTabbed.addTab("Selección ficheros por tamaño", ptcs);
 		
 		panelTabbed.setSelectedIndex(0);
 		this.getContentPane().add(panelTabbed);
