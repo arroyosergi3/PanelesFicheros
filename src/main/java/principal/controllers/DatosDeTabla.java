@@ -17,6 +17,7 @@ public class DatosDeTabla {
 	
 	public static Object[][] getDatosDeTabla() {
 		if (datos == null) {
+			
 			File[] estudiantes  = PanelTablaYFicheros.getCarpeta().listFiles();
 			datos = new Object[estudiantes.length][3];
 			for (int i = 0; i < estudiantes.length; i++) {

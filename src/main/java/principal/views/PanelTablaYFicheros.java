@@ -69,17 +69,30 @@ public class PanelTablaYFicheros extends JPanel {
 		add(jtfCarpetaSeleccionada, gbc_jtfCarpetaSeleccionada);
 		jtfCarpetaSeleccionada.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Selecciona carpeta");
-		btnNewButton.addActionListener(new ActionListener() {
+		JScrollPane jcp = new JScrollPane();
+		GridBagConstraints gbc_jcp = new GridBagConstraints();
+		gbc_jcp.gridwidth = 3;
+		gbc_jcp.insets = new Insets(0, 0, 0, 5);
+		gbc_jcp.fill = GridBagConstraints.BOTH;
+		gbc_jcp.gridx = 0;
+		gbc_jcp.gridy = 3;
+		add(jcp, gbc_jcp);
+
+		
+		JButton btnSeleccionaCarpeta = new JButton("Selecciona carpeta");
+		btnSeleccionaCarpeta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				seleccionaCarpeta();
+				dtm = getDefaultTableModelNoEditable();
+				table = new JTable(dtm);
+				jcp.setViewportView(table);
 			}
 		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 1;
-		add(btnNewButton, gbc_btnNewButton);
+		GridBagConstraints gbc_btnSeleccionaCarpeta = new GridBagConstraints();
+		gbc_btnSeleccionaCarpeta.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSeleccionaCarpeta.gridx = 2;
+		gbc_btnSeleccionaCarpeta.gridy = 1;
+		add(btnSeleccionaCarpeta, gbc_btnSeleccionaCarpeta);
 		
 		JLabel lblNewLabel_2 = new JLabel("Texto en nombre:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -105,17 +118,7 @@ public class PanelTablaYFicheros extends JPanel {
 		gbc_btnBuscarFicheros.gridy = 2;
 		add(btnBuscarFicheros, gbc_btnBuscarFicheros);
 		
-		JScrollPane jcp = new JScrollPane();
-		GridBagConstraints gbc_jcp = new GridBagConstraints();
-		gbc_jcp.gridwidth = 3;
-		gbc_jcp.insets = new Insets(0, 0, 0, 5);
-		gbc_jcp.fill = GridBagConstraints.BOTH;
-		gbc_jcp.gridx = 0;
-		gbc_jcp.gridy = 3;
-		add(jcp, gbc_jcp);
-		this.dtm = getDefaultTableModelNoEditable();
-		table = new JTable(dtm);
-		jcp.setViewportView(table);
+
 
 	}
 	

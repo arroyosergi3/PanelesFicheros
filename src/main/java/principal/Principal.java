@@ -7,16 +7,17 @@ import principal.views.PanelCopiaFicheros;
 import principal.views.PanelTablaYFicheros;
 
 public class Principal extends JFrame {
-	JTabbedPane panelTabbed;
+	private static final long serialVersionUID = 1L;
+	JTabbedPane panelTabbed;  
 	static Principal instance = null;
 
 	public static Principal getInstance() {
 		if (instance == null) {
 			instance = new Principal();
 		}
-		return instance;
+		return instance;    
 	}
-
+  
 	public Principal() {
 		super("Gestion de Ficheros");
 		this.setBounds(0, 0, 800, 600);
