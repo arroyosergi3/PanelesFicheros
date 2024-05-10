@@ -115,6 +115,7 @@ public class PanelTablaYFicheros extends JPanel {
 		JButton btnBuscarFicheros = new JButton("Buscar Ficheros");
 		btnBuscarFicheros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				filtrar(jtfFiltrarTexto.getText());
 			}
 		});
@@ -194,7 +195,7 @@ public class PanelTablaYFicheros extends JPanel {
 		}
 	
 	}
-	
+
 	public static File getCarpeta() {
 		return carpetaSeleccionada;
 	}

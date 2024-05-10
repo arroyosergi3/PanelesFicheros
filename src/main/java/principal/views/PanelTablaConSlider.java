@@ -142,27 +142,20 @@ public class PanelTablaConSlider extends JPanel {
 	private void filtrar() {
 	    int valorSlider = slider.getValue();
 	    int tamanioLimite = valorSlider * 1024; // Convertir de MB a KB
-
 	    lblTamanio.setText("> " + valorSlider + "MB");
 
 	    Object[][] datosFiltrados = DatosDeTabla.getDatosDeTablaFiltradoporTamanio(tamanioLimite);
+	    
 	    int cantidadFicheros = datosFiltrados != null ? datosFiltrados.length : 0;
-
 	    if (cantidadFicheros > 0) {
 	        lblTamanio.setText("> " + valorSlider + "MB (" + cantidadFicheros + " ficheros)");
-	        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-	        dtm.setDataVector(datosFiltrados, titulosEnTabla);
-	        table.revalidate(); // Forzar la actualización de la tabla
 	    } else {
-	        // Si no hay datos filtrados, mostrar una tabla vacía
 	        lblTamanio.setText("> " + valorSlider + "MB (0 ficheros)");
-	        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
 	        dtm.setRowCount(0);
-	        table.revalidate(); // Forzar la actualización de la tabla
 	    }
+	    table.setModel(dtm); // Actualiza el modelo de datos en la tabla
 	}
 
-	
 	
 	
 	
