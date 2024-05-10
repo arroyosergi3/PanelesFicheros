@@ -29,8 +29,9 @@ public class PanelTablaYFicheros extends JPanel {
 	private JFileChooser jfileChooser;
 	public static File carpetaSeleccionada;
 	private JTable table;
-	private Object datosEnTabla[][] = DatosDeTabla.getDatosDeTabla();
-	private String titulosEnTabla[] = DatosDeTabla.getTitulosColumnas();
+	Object datosEnTabla[][] = DatosDeTabla.getDatosDeTabla();
+	String titulosEnTabla[] = DatosDeTabla.getTitulosColumnas();
+	JScrollPane jcp;
 
 	private DefaultTableModel dtm = null;
 	/**
@@ -69,7 +70,7 @@ public class PanelTablaYFicheros extends JPanel {
 		add(jtfCarpetaSeleccionada, gbc_jtfCarpetaSeleccionada);
 		jtfCarpetaSeleccionada.setColumns(10);
 		
-		JScrollPane jcp = new JScrollPane();
+		 jcp = new JScrollPane();
 		GridBagConstraints gbc_jcp = new GridBagConstraints();
 		gbc_jcp.gridwidth = 3;
 		gbc_jcp.insets = new Insets(0, 0, 0, 5);
@@ -112,6 +113,11 @@ public class PanelTablaYFicheros extends JPanel {
 		jtfFiltrarTexto.setColumns(10);
 		
 		JButton btnBuscarFicheros = new JButton("Buscar Ficheros");
+		btnBuscarFicheros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filtrar(jtfFiltrarTexto.getText());
+			}
+		});
 		GridBagConstraints gbc_btnBuscarFicheros = new GridBagConstraints();
 		gbc_btnBuscarFicheros.insets = new Insets(0, 0, 5, 0);
 		gbc_btnBuscarFicheros.gridx = 2;
@@ -121,6 +127,28 @@ public class PanelTablaYFicheros extends JPanel {
 
 
 	}
+	
+	private void filtrar(String str) {
+	    datosEnTabla = DatosDeTabla.getDatosDeTablaFiltrado(this.jtfFiltrarTexto.getText().toLowerCase());
+	    
+	    DefaultTableModel dtm = new DefaultTableModel(datosEnTabla, titulosEnTabla) {
+	        @Override
+	        public boolean isCellEditable(int row, int column) {
+	            if (column != 1) {
+	                return false;
+	            }
+	            return true;
+	        } 
+	    };
+
+	    // Actualizar el modelo de datos del JTable existente
+	    table.setModel(dtm);
+
+	    // Limpieza del JScrollPane
+	    jcp.setViewportView(null);
+	    jcp.setViewportView(table);
+	}
+
 	
 	
 	
@@ -173,6 +201,9 @@ public class PanelTablaYFicheros extends JPanel {
 	
 	
 	private DefaultTableModel getDefaultTableModelNoEditable () {
+
+		datosEnTabla = DatosDeTabla.getDatosDeTabla();
+
 		DefaultTableModel dtm = new DefaultTableModel(datosEnTabla, titulosEnTabla) {
 			
 			/**
@@ -184,18 +215,18 @@ public class PanelTablaYFicheros extends JPanel {
 					return false;
 				}
 				return true;
-			}
+			} 
 		};
 		return dtm;
 	}
 
-	public Object[][] getDatosEnTabla() {
-		return datosEnTabla;
-	}
-
-	public void setDatosEnTabla(Object[][] datosEnTabla) {
-		this.datosEnTabla = datosEnTabla;
-	}
+//	public Object[][] getDatosEnTabla() {
+//		return datosEnTabla;
+//	}
+//
+//	public void setDatosEnTabla(Object[][] datosEnTabla) {
+//		this.datosEnTabla = datosEnTabla;
+//	}
 	
 	
 
