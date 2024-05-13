@@ -16,22 +16,23 @@ public class DatosDeTabla {
 	}
 	
 	
-	public static Object[][] getDatosDeTablaFiltradoporTamanio(int tamanio) {
-	    if (PanelTablaYFicheros.getCarpeta() != null) {
+	public static Object[][] getDatosDeTablaFiltradoporTamanio(int tamanio, String carpeta) {
+		File f = new File(carpeta);
+	    if (f != null) {
 	    	System.out.println("La carpeta no es nula");
-	        File[] archivos = PanelTablaYFicheros.getCarpeta().listFiles();
+	        File[] archivos = f.listFiles();
 	        // Crear una nueva matriz para almacenar los datos filtrados
 	        Object[][] datosFiltrados = new Object[archivos.length][3];
 	        System.out.println(archivos.length);
 	        int contador = 0;
 	        for (int i = 0; i < archivos.length; i++) {
-	        	System.out.println("La i está subiendo: " + i);
+//	        	System.out.println("La i está subiendo: " + i);
 	            File archivo = archivos[i];
 	            if (archivo.length() <= tamanio * 1024) { // Convertir tamaño a bytes
-		        	System.out.println("El archivo pesa " + archivo.length() );
+//		        	System.out.println("El archivo pesa " + archivo.length() );
 
 	                datosFiltrados[contador][0] = archivo.getName();
-	                System.out.println("Archivo añadido a tabla: " + archivo.getName());
+//	                System.out.println("Archivo añadido a tabla: " + archivo.getName());
 	                datosFiltrados[contador][1] = (archivo.length() / 1024f) + " KB"; // Tamaño en KB
 	                Date d = new Date(archivo.lastModified());
 	                SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
@@ -48,6 +49,7 @@ public class DatosDeTabla {
 	    }
 	    return null; // Retornar null si no hay carpeta seleccionada o no hay archivos
 	}
+
 
 
 	public static Object[][] getDatosDeTablaFiltrado(String str) {

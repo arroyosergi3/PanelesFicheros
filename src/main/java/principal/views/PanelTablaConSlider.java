@@ -141,19 +141,55 @@ public class PanelTablaConSlider extends JPanel {
 	
 	private void filtrar() {
 	    int valorSlider = slider.getValue();
-	    int tamanioLimite = valorSlider * 1024; // Convertir de MB a KB
-	    lblTamanio.setText("> " + valorSlider + "MB");
+	    int tamanioLimite = 0; // Convertir de MB a KB
+	    
+	    switch(slider.getValue()) {
+	    case 0:
+	    	tamanioLimite = 0;
+	    	lblTamanio.setText("> 0 KB"); 
+	    	break;
+	    case 1:
+	    	tamanioLimite = 1024 * 1024; // 1 MB
+	    	lblTamanio.setText("> 1 MB"); 
+	    	break;
+	    case 2:
+	    	tamanioLimite = 1024 * 1024 * 10; // 10 MB
+	    	lblTamanio.setText("> 10 MB"); 
+	    	break;
+	    case 3:
+	    	tamanioLimite = 1024 * 1024 * 100; // 100 MB
+	    	lblTamanio.setText("> 100 MB"); 
+	    	break;
+	    case 4:
+	    	tamanioLimite = 1024 * 1024 * 1024; // 1 GB
+	    	lblTamanio.setText("> 1 GB"); 
+	    	break;
+	    case 5:
+	    	tamanioLimite = 1024 * 1024 * 1024 * 10; // 10 GB
+	    	lblTamanio.setText("> 10 GB"); 
+	    	break;
+	    	
+	    }
+	    
+//	    lblTamanio.setText("> " + valorSlider + "MB");
 
-	    Object[][] datosFiltrados = DatosDeTabla.getDatosDeTablaFiltradoporTamanio(tamanioLimite);
+	    Object[][] datosFiltrados = DatosDeTabla.getDatosDeTablaFiltradoporTamanio(tamanioLimite, 
+	    		this.jtfCarpetaSeleccionada.getText());
 	    
 	    int cantidadFicheros = datosFiltrados != null ? datosFiltrados.length : 0;
 	    if (cantidadFicheros > 0) {
-	        lblTamanio.setText("> " + valorSlider + "MB (" + cantidadFicheros + " ficheros)");
+//	        lblTamanio.setText("> " + valorSlider + "MB (" + datosFiltrados.length + " ficheros)");
+	        
+	        dtm = new DefaultTableModel(datosFiltrados, DatosDeTabla.getTitulosColumnas());
+	        table = new JTable(dtm);
+	        
 	    } else {
 	        lblTamanio.setText("> " + valorSlider + "MB (0 ficheros)");
 	        dtm.setRowCount(0);
 	    }
 	    table.setModel(dtm); // Actualiza el modelo de datos en la tabla
+	    
+	    jcp.setViewportView(table);
 	}
 
 	
