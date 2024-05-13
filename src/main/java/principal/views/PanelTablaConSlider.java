@@ -184,7 +184,7 @@ public class PanelTablaConSlider extends JPanel {
 	        table = new JTable(dtm);
 	        
 	    } else {
-	        lblTamanio.setText("> " + valorSlider + "MB (0 ficheros)");
+//	        lblTamanio.setText("> " + valorSlider + "MB (0 ficheros)");
 	        dtm.setRowCount(0);
 	    }
 	    table.setModel(dtm); // Actualiza el modelo de datos en la tabla
